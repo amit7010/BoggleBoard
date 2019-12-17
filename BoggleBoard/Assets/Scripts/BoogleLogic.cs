@@ -6,20 +6,25 @@ using UnityEngine;
 
 public class BoogleLogic : Singleton<BoogleLogic>
 {
+    List<string> PossibleWords;
     /// <summary>
     /// Function to get All words possible 
     /// </summary>
     /// <returns></returns>
     private string[] GetDictionary()
     {
-        string[] dictionary = { "bred", "yore", "abed","oread", "bore", "orby", "robed", "broad", "byroad", "robe", "bored", "derby", "bade", "aero"
-        , "read", "orbed", "verb", "aery", "bead", "bread", "very", "road", "robbed", "robber", "board", "dove"};
+        string[] dictionary = { "BRED", "YORE", "ABED","OREAD", "BORE", "ORBY", "ROBED", "BROAD", "BYROAD", "ROBE", "BORED", "DERBY", "BADE", "AERO"
+        , "READ", "ORBED", "VERB", "AERY", "BEAD", "BREAD", "VERY", "ROAD", "ROBBED", "ROBBER", "BOARD", "DOVE"};
         
         return dictionary;
     }
 
 
-    private bool CheckWordInDictionary()
+    /// <summary>
+    /// Function to find all possible words
+    /// </summary>
+    /// <returns></returns>
+    public List<string> GetAllPossibleWords()
     {
         int Row = 3;
         int Column = 3;
@@ -29,20 +34,27 @@ public class BoogleLogic : Singleton<BoogleLogic>
         TrieNode.Column = Column;
 
         string[] dictionary = GetDictionary();
+        for (int i = 0; i < dictionary.Length; i++)
+        {
+            dictionary[i] = dictionary[i].ToUpper();
+            TrieNode.Insert(TrieNode, dictionary[i]);
+        }
 
         char[,] word = {{ 'Y', 'O', 'X' }, { 'R','B','A'},{'V','E','D' } };
-        findWords(word, TrieNode, Row, Column);
-        return true;
 
+        return PossibleWords = findWords(word, TrieNode, Row, Column);
+     
     }
 
-    void findWords(char[,] boggle, Trie root, int Rows,int Columns)
+    List<string> findWords(char[,] boggle, Trie root, int Rows,int Columns)
     {
         // Mark all characters as not visited  
         bool[,] visited = new bool[Rows, Columns];
         Trie pChild = root;
 
-        String str = "";
+        string str = "";
+        //IEnumerator target;
+        List<string> foundWords;
 
         // traverse all matrix elements  
         for (int i = 0; i < Rows; i++)
@@ -55,12 +67,26 @@ public class BoogleLogic : Singleton<BoogleLogic>
                 if (pChild.Child[(boggle[i, j]) - 'A'] != null)
                 {
                     str = str + boggle[i, j];
+                    //target = root.SearchWordRecursively(pChild.Child[(boggle[i, j]) - 'A'],
+                    //        boggle, i, j, visited, str);
+
+                    //while(target.MoveNext())
+                    //{
+                    //    str = target.Current.ToString();
+                    //    if(str !="")
+                    //    {
+                    //        Debug.Log(str);
+                    //    }
+                    //}
                     root.SearchWordRecursively(pChild.Child[(boggle[i, j]) - 'A'],
                             boggle, i, j, visited, str);
                     str = "";
                 }
             }
         }
+
+        foundWords = root.GetFoundWords();
+        return foundWords;
     }
 
     #region Not In Use

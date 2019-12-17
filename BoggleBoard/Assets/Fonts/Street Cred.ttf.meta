@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cd2842e587a54174081722db49cf585a
+guid: f4cff8ea7f1e0f94fb983d010b4f0b02
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Boston Traffic
+  fontName: Street Cred
   fontNames:
-  - Boston Traffic
+  - Street Cred
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

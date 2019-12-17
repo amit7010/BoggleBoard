@@ -9,6 +9,7 @@ namespace BoogleBoard.Utility
         protected readonly int SIZE = 26;
         public int Row { get; set; }
         public int Column { get; set; }
+        List<string> finalWords;
 
         public Trie[] Child;
 
@@ -19,6 +20,8 @@ namespace BoogleBoard.Utility
             isLeaf = false;
 
             Child = new Trie[SIZE];
+            finalWords = new List<string>();
+
             for(int i=0;i<SIZE;i++)
             {
                 Child[i] = null;
@@ -37,8 +40,8 @@ namespace BoogleBoard.Utility
                 if (Node.Child[index] == null)
                 {
                     Node.Child[index] = new Trie();
-                    Node = Node.Child[index];
                 }
+                Node = Node.Child[index];
             }
             isInserted = true;
             Node.isLeaf = true;
@@ -52,12 +55,13 @@ namespace BoogleBoard.Utility
                     j < Column && !visited[i, j]);
         }
 
-        public string SearchWordRecursively(Trie root, char[,] boggle, int i,
-                    int j, bool[,] visited, string str)
+        // A recursive function to print all words present on boggle  
+        public void SearchWordRecursively(Trie root, char[,] boggle, int i,
+                        int j, bool[,] visited, string str)
         {
             // if we found word in trie / dictionary  
             if (root.isLeaf == true)
-                return str;
+                finalWords.Add(str);
 
             // If both I and j in range and we visited  
             // that element of matrix first time  
@@ -115,8 +119,11 @@ namespace BoogleBoard.Utility
                 // make current element unvisited  
                 visited[i, j] = false;
             }
+        }
 
-            return null;
+        public List<string> GetFoundWords()
+        {
+            return finalWords;
         }
     }
 }
