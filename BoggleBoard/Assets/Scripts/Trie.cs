@@ -61,7 +61,7 @@ namespace BoogleBoard.Utility
         {
             // if we found word in trie / dictionary  
             if (root.isLeaf == true)
-                finalWords.Add(str);
+                finalWords.Add(str.Trim());
 
             // If both I and j in range and we visited  
             // that element of matrix first time  

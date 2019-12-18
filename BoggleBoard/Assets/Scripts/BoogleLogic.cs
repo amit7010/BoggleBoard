@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class BoogleLogic : Singleton<BoogleLogic>
 {
+    Trie TrieNode;
+
     List<string> PossibleWords;
     /// <summary>
     /// Function to get All words possible 
@@ -28,7 +30,7 @@ public class BoogleLogic : Singleton<BoogleLogic>
     {
         int Row = 3;
         int Column = 3;
-        Trie TrieNode = new Trie();
+        TrieNode = new Trie();
 
         TrieNode.Row = Row;
         TrieNode.Column = Column;
@@ -52,7 +54,7 @@ public class BoogleLogic : Singleton<BoogleLogic>
         bool[,] visited = new bool[Rows, Columns];
         Trie pChild = root;
 
-        string str = "";
+        string str = string.Empty;
         //IEnumerator target;
         List<string> foundWords;
 
@@ -80,13 +82,37 @@ public class BoogleLogic : Singleton<BoogleLogic>
                     //}
                     root.SearchWordRecursively(pChild.Child[(boggle[i, j]) - 'A'],
                             boggle, i, j, visited, str);
-                    str = "";
+                    str = string.Empty;
                 }
             }
         }
 
         foundWords = root.GetFoundWords();
         return foundWords;
+    }
+
+    public bool findWord(string word)
+    {
+
+        Trie pChild = TrieNode;
+        int wordIndex = 0;
+        
+        while(pChild.isLeaf != true && (wordIndex<word.Length))
+        {
+            int index = word[wordIndex] - 'A';
+            if (pChild.Child[index] == null)
+            {
+                return false;
+            }
+            else
+            {
+                pChild = pChild.Child[index];
+                ++wordIndex;
+            }
+         
+        }
+        return true;
+        
     }
 
     #region Not In Use
