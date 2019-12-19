@@ -1,6 +1,6 @@
 # Welcome to BOGGLEBOARD!
 
-![alt text]([https://github.com/amit7010/BoggleBoard/blob/master/BoggleBoard/ScreenShots/WelcomeScreen.PNG])
+![ScreenShot](BoggleBoard/ScreenShots/WelcomeScreen.PNG)
 ## Introduction
 BoggleBoard is a Word Game played on a Grid of Lettered Dice, in which players attempt to find words in sequences of adjacent letters.
 
