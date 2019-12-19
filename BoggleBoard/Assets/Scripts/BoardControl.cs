@@ -40,6 +40,7 @@ public class BoardControl : MonoBehaviour
     List<string> inputWords;
 
     bool UpdatePending = false;
+    bool ClockTicking = false;
     BoogleLogic Instance;
 
     #endregion
@@ -74,15 +75,17 @@ public class BoardControl : MonoBehaviour
     /// </summary>
     private void ControlTimer()
     {
-        if(timeLeft <=0 )
+        if(timeLeft <=0 && !ClockTicking )
         {
             GameOver();
             //CancelInvoke("ControlTimer");
         }
-        else
+        else if(ClockTicking)
         {
             timeLeftTxt.text = "" + timeLeft;
             timeLeft--;
+            if (timeLeft <= 0)
+                ClockTicking = !ClockTicking;
         }
     }
 
@@ -96,8 +99,11 @@ public class BoardControl : MonoBehaviour
         //1. Enable PlayScreen canvas Panel
         PlayPanel.SetActive(true);
         //2.1. Non-Linear Interpolate Camera for better View
+
         //2.2. Roll Dies
-        
+        StartCoroutine(DiceControl.Instance.RollDies());
+        //2.3 Start Clock Ticking
+        ClockTicking = true;
     }
 
     /// <summary>

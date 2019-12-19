@@ -109,6 +109,7 @@ public class BoogleLogic : Singleton<BoogleLogic>
                 pChild = pChild.Child[index];
                 ++wordIndex;
             }
+
          
         }
         return true;
