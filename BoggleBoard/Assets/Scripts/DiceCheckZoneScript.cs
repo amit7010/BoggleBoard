@@ -1,4 +1,5 @@
 ﻿using BoogleBoard.Utility;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,40 +19,47 @@ public class DiceCheckZoneScript : Singleton<DiceCheckZoneScript>
         word = new char[Row,Column];
     }
 
+    private void Update()
+    {
+        UpdateDebugBox();
+    }
+
+    private void UpdateDebugBox()
+    {
+        foreach(DiceScript die in dies)
+        {
+            word[die.posX, die.posY] = die.CurrentText;
+        }
+    }
+
     private void OnTriggerStay(Collider other)
     {
-        if(!UpdateDone && diesSettled)
+        if (!UpdateDone)
         {
-            for (int i = 0; i < dies.Count; i++)
+            switch (other.gameObject.name)
             {
-                if (dies[i].diceVelocity.x == 0f && dies[i].diceVelocity.y == 0f && dies[i].diceVelocity.z == 0f)
-                {
-                    switch (other.gameObject.name)
-                    {
-                        case "Side1":
-                            word[dies[i].posX,dies[i].posY] = (dies[i].GetCharacter("Side1"));
-                            break;
-                        case "Side2":
-                            word[dies[i].posX, dies[i].posY] = (dies[i].GetCharacter("Side2"));
-                            break;
-                        case "Side3":
-                            word[dies[i].posX, dies[i].posY] = (dies[i].GetCharacter("Side3"));
-                            break;
-                        case "Side4":
-                            word[dies[i].posX, dies[i].posY] = (dies[i].GetCharacter("Side4"));
-                            break;
-                        case "Side5":
-                            word[dies[i].posX, dies[i].posY] = (dies[i].GetCharacter("Side5"));
-                            break;
-                        case "Side6":
-                            word[dies[i].posX, dies[i].posY] = (dies[i].GetCharacter("Side6"));
-                            break;
-                    }
-                }
+                case "Side1":
+                    other.gameObject.GetComponent<DieSide>().respectiveDice.GetCharacter("Side1");
+                    break;
+                case "Side2":
+                    other.gameObject.GetComponent<DieSide>().respectiveDice.GetCharacter("Side2");
+                    break;
+                case "Side3":
+                    other.gameObject.GetComponent<DieSide>().respectiveDice.GetCharacter("Side3");
+                    break;
+                case "Side4":
+                    other.gameObject.GetComponent<DieSide>().respectiveDice.GetCharacter("Side4");
+                    break;
+                case "Side5":
+                    other.gameObject.GetComponent<DieSide>().respectiveDice.GetCharacter("Side5");
+                    break;
+                case "Side6":
+                    other.gameObject.GetComponent<DieSide>().respectiveDice.GetCharacter("Side6");
+                    break;
             }
-            
+            FillWords.Instance.FillWord(word);
 
         }
     }
-    
+
 }

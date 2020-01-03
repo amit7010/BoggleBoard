@@ -8,7 +8,7 @@ public class DiceControl : Singleton<DiceControl>
 {
     List<DiceScript> dies;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         dies = GetComponentsInChildren<DiceScript>().ToList();
     }
@@ -26,9 +26,9 @@ public class DiceControl : Singleton<DiceControl>
         foreach(DiceScript die in dies)
         {
             die.startRolling = true;
-            yield return new WaitForSeconds(.02f);
+            yield return null;
         }
-        DiceCheckZoneScript.Instance.diesSettled = true;
+        //DiceCheckZoneScript.Instance.diesSettled = true;
 
     }
 }

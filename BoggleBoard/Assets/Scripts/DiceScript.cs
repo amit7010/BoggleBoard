@@ -24,11 +24,13 @@ public class DiceScript : MonoBehaviour
     public TextMeshPro Side5OppS6;
     public TextMeshPro Side6OppS5;
 
+    public char CurrentText;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
-
+    
     private void FixedUpdate()
     {
         diceVelocity = rb.velocity;
@@ -43,26 +45,34 @@ public class DiceScript : MonoBehaviour
             float dirZ = Random.Range(-500, 2000);
             //transform.position = new Vector3(0, 2, 0);
             //transform.rotation = Quaternion.identity;
-            rb.AddForce(transform.up * (DiceForce+DiceForce));
-            rb.AddTorque(dirX, dirY, dirZ);
+            rb.AddForce(transform.up * (DiceForce));
+            rb.AddTorque(dirX, dirY, dirZ,ForceMode.Impulse);
             startRolling = false;
         }
     }
 
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    Debug.Log("Runnning");
+    //}
+    
     public char GetCharacter(string side)
     {
+        
         if (side == "Side1")
-            return Side1OppS3.text[0];
+            CurrentText = Side1OppS3.text[0];
         else if (side == "Side2")
-            return Side2OppS4.text[0];
+            CurrentText = Side2OppS4.text[0];
         else if (side == "Side3")
-            return Side3OppS1.text[0];
+            CurrentText = Side3OppS1.text[0];
         else if (side == "Side4")
-            return Side4OppS2.text[0];
+            CurrentText = Side4OppS2.text[0];
         else if (side == "Side5")
-            return Side5OppS6.text[0];
-        else 
-            return Side6OppS5.text[0];
+            CurrentText = Side5OppS6.text[0];
+        else
+            CurrentText = Side6OppS5.text[0];
+
+        return CurrentText;
     }
 
     public void PutCharacter(char[] ch)
