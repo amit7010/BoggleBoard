@@ -50,11 +50,6 @@ public class DiceScript : MonoBehaviour
             startRolling = false;
         }
     }
-
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    Debug.Log("Runnning");
-    //}
     
     public char GetCharacter(string side)
     {

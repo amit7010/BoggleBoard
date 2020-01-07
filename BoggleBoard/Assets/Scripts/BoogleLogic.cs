@@ -16,7 +16,7 @@ public class BoogleLogic : Singleton<BoogleLogic>
     private string[] GetDictionary()
     {
         string[] dictionary = { "BRED", "YORE", "ABED","OREAD", "BORE", "ORBY", "ROBED", "BROAD", "BYROAD", "ROBE", "BORED", "DERBY", "BADE", "AERO"
-        , "READ", "ORBED", "VERB", "AERY", "BEAD", "BREAD", "VERY", "ROAD", "ROBBED", "ROBBER", "BOARD", "DOVE"};
+        , "READ", "ORBED", "VERB", "AERY", "BEAD", "BREAD", "VERY", "ROAD", "ROBBED", "ROBBER", "BOARD", "DOVE","ROAR","BOA"};
         
         return dictionary;
     }
@@ -26,7 +26,7 @@ public class BoogleLogic : Singleton<BoogleLogic>
     /// Function to find all possible words
     /// </summary>
     /// <returns></returns>
-    public List<string> GetAllPossibleWords()
+    public List<string> GetAllPossibleWords(char[,] word)
     {
         int Row = 3;
         int Column = 3;
@@ -42,7 +42,7 @@ public class BoogleLogic : Singleton<BoogleLogic>
             TrieNode.Insert(TrieNode, dictionary[i]);
         }
 
-        char[,] word = {{ 'Y', 'O', 'X' }, { 'R','B','A'},{'V','E','D' } };
+        //char[,] word = {{ 'Y', 'O', 'X' }, { 'R','B','A'},{'V','E','D' } };
 
         return PossibleWords = findWords(word, TrieNode, Row, Column);
      

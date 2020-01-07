@@ -60,7 +60,7 @@ namespace BoogleBoard.Utility
                         int j, bool[,] visited, string str)
         {
             // if we found word in trie / dictionary  
-            if (root.isLeaf == true)
+            if (root.isLeaf == true && !finalWords.Contains(str.Trim()))
                 finalWords.Add(str.Trim());
 
             // If both I and j in range and we visited  

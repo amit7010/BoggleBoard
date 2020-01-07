@@ -52,24 +52,35 @@ public class BoardControl : MonoBehaviour
         Instance = new BoogleLogic();
         //For Testing
         BoggleTxt.text = "";
-
-        //BoggleTxt.text = BoogleLogic.
-        possibleWords = Instance.GetAllPossibleWords();
+        //GetPossibleWords();
         inputWords = new List<string>();
-        foreach(string word in possibleWords)
+        timeLeftTxt.text = "" + timeLeft;
+    }
+
+    private void GetPossibleWords()
+    {
+        char[,] words = new char[3, 3];
+        List<DiceScript> dies = DiceControl.Instance.dies;
+        foreach (DiceScript die in dies)
+        {
+            words[die.posX, die.posY] = die.CurrentText;
+        }
+        //BoggleTxt.text = BoogleLogic.
+        possibleWords = Instance.GetAllPossibleWords(words);
+        inputWords = new List<string>();
+        foreach (string word in possibleWords)
         {
             BoggleTxt.text += " -   " + word + "\n";
         }
-        timeLeftTxt.text = "" + timeLeft;
     }
 
     //private void Update()
     //{
-        
+
     //}
 
     #region Helper Methods
-    
+
     /// <summary>
     /// Function to Control timer of the Game
     /// </summary>
@@ -131,6 +142,7 @@ public class BoardControl : MonoBehaviour
 
         GameOverPanel.SetActive(true);
 
+        GetPossibleWords();
         //Calculate Score
         CalculateScore();
     }

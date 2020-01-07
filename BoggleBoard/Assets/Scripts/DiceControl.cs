@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class DiceControl : Singleton<DiceControl>
 {
-    List<DiceScript> dies;
+    public List<DiceScript> dies;
     // Start is called before the first frame update
     void Awake()
     {
